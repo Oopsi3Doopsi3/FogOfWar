@@ -3,12 +3,12 @@
     "maps": [
         {
             "name": "Gameplay",
-            "id": "ddbdab5a-13e7-46fa-81c6-3f0e795f951a",
+            "id": "81e86166-be79-4279-ab29-2122202569bb",
             "actions": [
                 {
                     "name": "Movement",
                     "type": "Value",
-                    "id": "b2a510f4-23a4-4759-a2e5-b9cadd44dfcf",
+                    "id": "2a8ed9cc-bdb8-4333-ae50-267f757be8fe",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -18,7 +18,7 @@
             "bindings": [
                 {
                     "name": "2D Vector",
-                    "id": "466d53d7-115e-4d79-b2fa-40b29dbb08b0",
+                    "id": "8b41d42f-171c-4212-ad5c-597d4dbe43f6",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -29,7 +29,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "c4e773c6-e351-4663-b561-62a750251de5",
+                    "id": "e5d28e22-9d36-40f1-8438-a25578cf5724",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -40,7 +40,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "aa0d8009-331f-440d-9c28-b9704671ae11",
+                    "id": "87d6a6ea-e525-4cd6-bc12-85f6a9d4c8af",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -51,7 +51,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "6e5f6d4c-8dc0-45bb-b7e1-8f0340750dc0",
+                    "id": "cfef90b4-d909-41da-a2e5-4134a1556672",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "7a3f2e49-edad-4f6d-9617-118bb24b5f69",
+                    "id": "415ad86d-5b34-49bb-b32f-8821458cec29",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",

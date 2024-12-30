@@ -15,12 +15,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        if(!_inputAsset)
+        if (!_inputAsset)
         {
             Debug.LogError("No input action asset found");
         }
 
-        if(!TryGetComponent<Rigidbody>(out _rigidbody))
+        if (!TryGetComponent<Rigidbody>(out _rigidbody))
         {
             Debug.LogError("No rigidbody found");
         }
