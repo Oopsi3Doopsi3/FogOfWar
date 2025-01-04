@@ -5,35 +5,33 @@ using UnityEngine;
 [RequireComponent(typeof(Projector))]
 public class FogProjector : MonoBehaviour
 {
-    public Material projectorMaterial;
-    public float blendSpeed;
-    public int textureScale;
+    [SerializeField] private Material _projectorMaterial;
+    [SerializeField] private float _blendSpeed = 25.0f;
+    [SerializeField] private int _textureScale = 2;
+    [SerializeField] private RenderTexture _fogTexture;
 
-    public RenderTexture fogTexture;
-
-    private RenderTexture prevTexture;
-    private RenderTexture currTexture;
-    private Projector projector;
-
-    private float blendAmount;
+    private RenderTexture _prevTexture;
+    private RenderTexture _currTexture;
+    private Projector _projector;
+    private float _blendAmount;
 
     private void Awake()
     {
-        if (!TryGetComponent<Projector>(out projector))
+        if (!TryGetComponent<Projector>(out _projector))
         {
             Debug.LogError("No projector found");
         }
-        projector.enabled = true;
+        _projector.enabled = true;
 
-        prevTexture = GenerateTexture();
-        currTexture = GenerateTexture();
+        _prevTexture = GenerateTexture();
+        _currTexture = GenerateTexture();
 
         // Projector materials aren't instanced, resulting in the material asset getting changed.
         // Instance it here to prevent us from having to check in or discard these changes manually.
-        projector.material = new Material(projectorMaterial);
+        _projector.material = new Material(_projectorMaterial);
 
-        projector.material.SetTexture("_PrevTexture", prevTexture);
-        projector.material.SetTexture("_CurrTexture", currTexture);
+        _projector.material.SetTexture("_PrevTexture", _prevTexture);
+        _projector.material.SetTexture("_CurrTexture", _currTexture);
 
         StartNewBlend();
     }
@@ -41,12 +39,12 @@ public class FogProjector : MonoBehaviour
     RenderTexture GenerateTexture()
     {
         RenderTexture rt = new RenderTexture(
-            fogTexture.width * textureScale,
-            fogTexture.height * textureScale,
+            _fogTexture.width * _textureScale,
+            _fogTexture.height * _textureScale,
             0,
-            fogTexture.format)
+            _fogTexture.format)
         { filterMode = FilterMode.Bilinear };
-        rt.antiAliasing = fogTexture.antiAliasing;
+        rt.antiAliasing = _fogTexture.antiAliasing;
 
         return rt;
     }
@@ -54,23 +52,23 @@ public class FogProjector : MonoBehaviour
     public void StartNewBlend()
     {
         StopCoroutine(BlendFog());
-        blendAmount = 0;
+        _blendAmount = 0;
         // Swap the textures
-        Graphics.Blit(currTexture, prevTexture);
-        Graphics.Blit(fogTexture, currTexture);
+        Graphics.Blit(_currTexture, _prevTexture);
+        Graphics.Blit(_fogTexture, _currTexture);
 
         StartCoroutine(BlendFog());
     }
 
     IEnumerator BlendFog()
     {
-        while (blendAmount < 1)
+        while (_blendAmount < 1)
         {
             // increase the interpolation amount
-            blendAmount += Time.deltaTime * blendSpeed;
+            _blendAmount += Time.deltaTime * _blendSpeed;
             // Set the blend property so the shader knows how much to lerp
             // by when checking the alpha value
-            projector.material.SetFloat("_Blend", blendAmount);
+            _projector.material.SetFloat("_Blend", _blendAmount);
             yield return null;
         }
         // once finished blending, swap the textures and start a new blend
