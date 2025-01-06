@@ -10,7 +10,6 @@ public class FogProjector : MonoBehaviour
     [SerializeField] private float _blendSpeed = 25.0f;
     [SerializeField] private int _textureScale = 2;
     [SerializeField] private RenderTexture _fogTexture;
-    [SerializeField] private Camera _fogCamera;
 
     private RenderTexture _prevTexture;
     private RenderTexture _currTexture;
@@ -19,31 +18,14 @@ public class FogProjector : MonoBehaviour
 
     private void Awake()
     {
-        //transform.parent.transform.position = Vector3.zero;
-        //transform.parent.transform.rotation = Quaternion.identity;
-
         if (!TryGetComponent<Projector>(out _projector))
         {
             Debug.LogError("No projector found");
         }
         _projector.enabled = true;
 
-        if (_fogCamera == null)
-        {
-            Debug.LogError("No fog camera found");
-        }
-
-        //_fogTexture = new RenderTexture(
-        //     64,
-        //     64,
-        //     0,
-        //     RenderTextureFormat.ARGB32);
-        //_fogTexture.filterMode = FilterMode.Bilinear;
-
         _prevTexture = GenerateTexture();
         _currTexture = GenerateTexture();
-
-        //_fogCamera.targetTexture = _fogTexture;
 
         // Projector materials aren't instanced, resulting in the material asset getting changed.
         // Instance it here to prevent us from having to check in or discard these changes manually.
@@ -64,21 +46,8 @@ public class FogProjector : MonoBehaviour
             _fogTexture.format);
         rt.filterMode = FilterMode.Bilinear;
 
-        //RenderTexture rt = new RenderTexture(
-        //    64 * _textureScale, // Adjust resolution based on scale
-        //    64 * _textureScale,
-        //    0,
-        //    RenderTextureFormat.ARGB32);
-        //rt.filterMode = FilterMode.Bilinear;
-
         return rt;
     }
-
-    //private void Update()
-    //{
-    //    transform.parent.transform.position = Vector3.zero;
-    //    transform.parent.transform.rotation = Quaternion.identity;
-    //}
 
     public void StartNewBlend()
     {
